@@ -1,4 +1,4 @@
-## Album App Test
+## Album App Test 2
 Basic CRUD for Album and Photos <br/>
 API: Laravel 7.X <br/>
 FE: Quasar <br/>
