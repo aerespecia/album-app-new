@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Album;
+use App\Http\Resources\AlbumCollection;
+use App\Http\Resources\Album as AlbumResource;
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -14,7 +15,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        $albums = Album::all();
+        return new AlbumCollection($albums);
     }
 
     /**
@@ -35,7 +37,9 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $album = new Album($request->all());
+        $album->save();
+        return new AlbumResource($album);
     }
 
     /**
@@ -44,9 +48,9 @@ class AlbumController extends Controller
      * @param  \App\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Album $album)
     {
-        //
+        return new AlbumResource($album);
     }
 
     /**
@@ -69,7 +73,8 @@ class AlbumController extends Controller
      */
     public function update(Request $request, Album $album)
     {
-        //
+        $album->update($request->all());
+        return new AlbumResource($album);
     }
 
     /**
@@ -80,6 +85,7 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        $album->delete();
+        return new AlbumResource($album);
     }
 }

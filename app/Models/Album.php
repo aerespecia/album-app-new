@@ -11,6 +11,7 @@ class Album extends Model
 
     protected $table = 'albums';
 
+    const ID = "id";
     const USER_ID = "user_id";
     const TITLE = "title";
 

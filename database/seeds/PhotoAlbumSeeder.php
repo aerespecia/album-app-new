@@ -15,27 +15,27 @@ class PhotoAlbumSeeder extends Seeder
     public function run()
     {
 
-        DB::table('albums')->truncate();
         DB::table('photos')->truncate();
+        DB::table('albums')->truncate();
 
         $photosFromSource = Http::get('https://jsonplaceholder.typicode.com/photos')->json();
         $albumsFromSource = Http::get('https://jsonplaceholder.typicode.com/albums')->json();
 
-        foreach($photosFromSource as $photo) {
+        for($i = 0; $i < 500; $i++) {
             Photo::insert([
-                '_id'=>$photo[Photo::ID],
-                'album_id'=>$photo[Photo::ALBUM_ID],
-                'title'=>$photo[Photo::TITLE],
-                'url'=>$photo[Photo::URL],
-                'thumbnail_url'=>$photo[Photo::THUMBNAIL_URL],
+                '_id'=>$photosFromSource[$i]["id"],
+                'album_id'=>$photosFromSource[$i]["albumId"],
+                'title'=>$photosFromSource[$i]["title"],
+                'url'=>$photosFromSource[$i]["url"],
+                'thumbnail_url'=>$photosFromSource[$i]["thumbnailUrl"],
             ]);
         }
 
-        foreach($albumsFromSource as $album) {
+        for($j = 0; $j < 10; $j++) {
             Album::insert([
-                '_id'=>$album[Album::ID],
-                'user_id'=>$album[Album::USER_ID],
-                'title'=>$album[Album::TITLE]
+                '_id'=>$albumsFromSource[$j]["id"],
+                'user_id'=>$albumsFromSource[$j]["userId"],
+                'title'=>$albumsFromSource[$j]["title"]
             ]);
         }
     }

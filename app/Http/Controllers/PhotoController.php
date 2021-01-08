@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Photo;
+use App\Models\Photo;
+use App\Http\Resources\Photo as PhotoResource;
+use App\Http\Resources\PhotoCollection;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -14,7 +15,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+        $photos = Photo::all();
+        return new PhotoCollection($photos);
     }
 
     /**
@@ -35,7 +37,9 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $photo = new Photo($request->all());
+        $photo->save();
+        return new PhotoResource($photo);
     }
 
     /**
@@ -46,7 +50,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        //
+        return new PhotoResource($photo);
     }
 
     /**
@@ -69,7 +73,8 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-        //
+        $photo->update($request->all());
+        return new PhotoResource($photo);
     }
 
     /**
@@ -80,6 +85,7 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        //
+        $photo->delete();
+        return new PhotoResource($photo);
     }
 }

@@ -11,6 +11,7 @@ class Photo extends Model
 
     protected $table = 'photos';
 
+    const ID = "id";
     const ALBUM_ID = "album_id";
     const TITLE = "title";
     const URL = "url";
